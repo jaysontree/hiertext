@@ -12,8 +12,8 @@ The Unified Detctor model is originally from Google's Tensorflow project [Unifie
 - [x] modified loss computing code to support both raw and balanced style loss. 
 - [x] modified original maxdeeplab code to solve some OOM issue
 - [x] defined a simple Hiertext dataset for torch dataloader
-- [] verrify the model
-- [] train the model on Hiertext dataset
+- [ ] verrify the model
+- [ ] train the model on Hiertext dataset
 
 ### reference
 - [Unified Detector](https://github.com/tensorflow/models/tree/master/official/projects/unified_detector)

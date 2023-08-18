@@ -23,3 +23,4 @@ The Unified Detctor model is originally from Google's Tensorflow project [Unifie
 ### remark
 - the dims in original project config needs a huge number of Memory/FrameBuffer. eg. the mask instance output has shape [256, 384, 1024, 1024], for fp32 it takes `256 x 384 x 1024 x 1024 x 4 = 384 (GB)` along. since the best device I can access is a tesla V-100 with 32GB fb, I have to reduce the num of masks under 100 and limit the batchsize under 4.
 - there are some code changes to reduce memory consumption. hopefully they will lead to same results. eg. use matmul to replace reducesum(expanddim elementwise multiply), use indexing for matched mask instead of multiply full matching matrix.
+- the main net maxdeeplab used here may be quite different from the one in original project.

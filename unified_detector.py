@@ -20,12 +20,12 @@ class UnifiedDetector(nn.Module):
     def forward(self, P):
         M = repeat(self.global_memory, 'n k -> n b k', b=P.size(0))
         pixel_feature, memory = self.MaXDeepLabBackbone(P, M)
-        class_feature, group_feature = self.TextClusterHead(memory) # [N, B, C]
+        cluster_feature, group_feature = self.TextClusterHead(memory) # [N, B, C]
         group_feature = group_feature.permute(1,0,2) # [B, N, C]
         group_feature_t = torch.transpose(group_feature, 1, 2)
         semantic = self.SemanticHead(pixel_feature[-1]) # last stage feature
         affinity = torch.matmul(group_feature, group_feature_t)
         mask_out, classes, mask_feature = self.MaXDeepLabDecoder(pixel_feature, memory)
         cls_prob = F.softmax(classes, dim=-1)
-        clss = torch.argmax(cls_prob, dim=-1)
-        return mask_out, classes, semantic, affinity, mask_feature, clss
+        cls = torch.argmax(cls_prob, dim=-1)
+        return mask_out, classes, semantic, affinity, mask_feature, cls

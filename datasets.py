@@ -47,7 +47,7 @@ class HiertextDataset(Dataset):
         masks= []
         labels = []
 
-        full_mask = np.ones((self.output_size, self.output_size)) * 2
+        full_mask = np.ones((self.output_size, self.output_size))
         cnts = 0
         # detection unit 默认为 "Line"
         for groupid, para in enumerate(self.anno[idx]['paragraphs']):

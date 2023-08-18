@@ -42,15 +42,12 @@ class ParagraphGroupingLoss(nn.Module):
         """
         (inp_pos_idx, tgt_pos_idx, neg_idx) = matched_mask
         b, n = input_masks.size()[:2]
-        # K = target_masks.size[1]
-        #if K >= N: # truncate
-        #    target_grouping_padded = target_grouping[tgt_pos_idx] # [B, k?]
-        #target_grouping_padded = F.pad(target_grouping, (0, N-K), "constant", -1) # [B, N]
 
         # step 1： calculate gt affinity
         has_group_id = (torch.sum(target_grouping + 1, axis=1) > 0).to(torch.float32) # [B]
         has_para_lable_gt = has_group_id.unsqueeze(1).unsqueeze(1) # [B, 1, 1]
-        matching =  torch.zeros(b, n, n)
+        _device = target_grouping.device
+        matching =  torch.zeros(b, n, n).to(_device)
         _combined_pos_idx = (inp_pos_idx[0], inp_pos_idx[1], tgt_pos_idx[1])
         matching[_combined_pos_idx] = 1
         pred_label_gt = torch.einsum('bij,bj -> bi', matching, target_grouping + 1) # B, N
@@ -75,7 +72,7 @@ class ParagraphGroupingLoss(nn.Module):
         # balanced
         pos_mask = gt_affinity_mask * gt_affinity # [B, ]
         pos_loss = torch.sum(pointwise_loss * pos_mask) / (torch.sum(pos_mask) + self.eps) 
-        neg_mask = gt_affinity_mask * (1. - gt_affinity_mask) # [B, ]
+        neg_mask = gt_affinity_mask * (1. - gt_affinity) # [B, ]
         neg_loss = torch.sum(pointwise_loss * neg_mask) / (torch.sum(neg_mask) + self.eps)
         loss = 0.25 * pos_loss + 0.75 * neg_loss
         return loss

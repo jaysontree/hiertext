@@ -3,7 +3,6 @@ import torch
 import torch.nn.functional as F
 from torch.optim import Adam
 from torch.utils.data import DataLoader
-from einops import rearrange
 # import pytorch_lightling as pl # TODO
 
 from unified_detector import UnifiedDetector
@@ -46,11 +45,13 @@ def train_one_epoch(epoch_index):
         optimizer.step()
 
         running_loss = running_loss + loss
+        last_loss = last_loss + loss
         if _i % 10 == 9:
-            last_loss = running_loss / (i+1)
-            print(f'epoch: {epoch_index} step: {_i + 1} running loss: {last_loss}')
+            last_loss = last_loss / 10
+            print(f'epoch: {epoch_index} step: {_i + 1} loss: {last_loss}')
+            last_loss = 0.
 
-    return last_loss, loss, loss_item
+    return running_loss/(_i+1), loss, loss_item
 
 for i in range(100):
     last_loss, loss, loss_item = train_one_epoch(i+1)

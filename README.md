@@ -1,6 +1,7 @@
 # hiertext
 A Pytorch implementation of Unified_Detector for scenetext detection and layout analysis.
-__i am still working on it on my spare time and any Advising/discussion is welcome !__
+
+__i am still working on it on my spare time and any Advising/discussion is welcome ! 🤯:__
 
 ### update
 
@@ -24,6 +25,7 @@ The Unified Detctor model is originally from Google's Tensorflow project [Unifie
 - [Unified Detector](https://github.com/tensorflow/models/tree/master/official/projects/unified_detector)
 - [Max Deeplab Unofficial](https://github.com/conradry/max-deeplab)
 - [HierText dataset](https://github.com/google-research-datasets/hiertext)
+- [Related ChineseBlog](https://blog.csdn.net/ckt20466498/article/details/127574980)
 
 ### remark
 - the dims in original project config needs a huge number of Memory/FrameBuffer. eg. the mask instance output has shape [256, 384, 1024, 1024], for fp32 it takes `256 x 384 x 1024 x 1024 x 4 = 384 (GB)` along. since the best device I can access is a Nvidia GPU with 32G fb, I have to reduce the num of masks under 40 and limit the batchsize to 4.

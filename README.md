@@ -5,7 +5,7 @@ __i am still working on it on my spare time and any Advising/discussion is welco
 
 ### update
 
-2023-8-24 :calendar: the training on hiertext was not successful, model outputs are random strip-like shapes. using coco panoptic2017 dataset to train on the Maxdeeplab(from [Max Deeplab](https://github.com/conradry/max-deeplab)) for a 10000 steps was not successful. will working on it.
+2023-8-24 :calendar: the training on hiertext was not successful, model outputs are random strip-like shapes. using coco panoptic2017 dataset to train on the Maxdeeplab(from [Max Deeplab](https://github.com/conradry/max-deeplab)) was not successful. will working on it.
 
 ### purpose of this project
 This project is for personal interests and selfstudy :clown_face:
